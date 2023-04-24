@@ -1,8 +1,10 @@
 import styles from './Statistics.module.css';
+import PropType from 'prop-types';
+
 const Statistics = ({ stats, title }) => {
   return (
     <section className={styles.container}>
-      {title.length > 0 && <h2 className={styles.title}>{title}</h2>}
+      {title && <h2 className={styles.title}>{title}</h2>}
       <ul className={styles.statsList}>
         {stats.map(({ id, label, percentage }) => (
           <li
@@ -25,3 +27,14 @@ function randomColor() {
     .toString(16)
     .padStart(6, 0)}`;
 }
+
+Statistics.propType = {
+  title: PropType.string,
+  stats: PropType.arrayOf(
+    PropType.shape({
+      id: PropType.string.isRequired,
+      label: PropType.string.isRequired,
+      percentage: PropType.number.isRequired,
+    })
+  ),
+};
